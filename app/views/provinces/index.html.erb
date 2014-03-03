@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Province</title>
+		<script>
+			function updateData(mode,data,rowid)
+			{
+				if (mode=="new")
+				{
+				$("#datalist > tbody:last").append(data);
+				}
+				else
+				{
+				$("#" + rowid).replaceWith(data);
+				}
+				 
+			}
+			$(function() {
+				
+			$( "#dialog-form" ).dialog({
+	      autoOpen: false,
+	      height: 160,
+	      width: 250,
+	      modal: true,
+	      // buttons: {
+	        // "OK": function() {
+	        	// alert("ok");
+	            // $( this ).dialog( "close" );
+	        	// },
+	        // Cancel: function() {
+	          // $( this ).dialog( "close" );
+	        	// }
+	      	// }
+	    	});
+	 
+	    $("#btnClose").click(function()
+	    {
+	    	$("#dialog-form").dialog("close");
+	    	//var x = $( "#dialog-form" );
+	    	//$(x).dialog("close");
+	    	//this.window.document.close();
+	    })
+	 $('.ui-dialog-buttonpane').find('button').css('visibility','hidden');
+
+	    $("#btnNew").click(function() {
+	        $( "#dialog-form" ).dialog( "open" );
+	        $("#newdialog").attr('src','http://0.0.0.0:3000/provinces/new?mode=new');
+	      });
+	  });
+	  
+	  function openProvince(id)
+	  {
+	  	$( "#dialog-form" ).dialog( "open" );
+	    $("#newdialog").attr('src','http://0.0.0.0:3000/provinces/'+id+'/edit?mode=edit');
+	  }
+  
+		</script>
+	</head>
+	<body>
+		<!-- new dialog start -->
+		<div id="dialog-form" title="Create new province" style="background-color:grey">
+			<iframe id="newdialog" name="newdialog" seamless="seamless" frameborder="0" scrolling="no"> 
+		    </iframe>
+		</div>
+		<!-- new dialog end -->
+		<header>
+			<h1>List of Provinces</h1>
+		</header>
+		<section>
+			<input type="button" id="btnNew" value="New">
+			<input type="button" id="bntDelete" value="Delete">
+			<input type="button" id="btnClose" value="Close">
+		</section>
+		<section>
+			<table id="datalist" border="1">
+				<thead>
+					<tr>
+						<th></th>
+						<th>Name</th>
+						<th>Date Created</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @provinces.each do |p| %>
+					<tr id="r<%=p.id%>">
+						<td> <input type="checkbox" id="row<%=p.id%>">
+						<td> <a href="javascript:openProvince(<%=p.id%>)"> <%=p.name%></a></td>
+						<td> <%=p.created_at%></td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+			
+		</section>
+		<div id="dl">
+		</div>	
+	</body>
+</html>

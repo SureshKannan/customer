@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>New Province</title>
+		<script>
+			$(document).ready(function()
+			{
+				$("#btnCancel").click(
+					function() 
+					{
+						window.parent.document.getElementById("btnClose").click();
+				    }
+				  );
+			 }
+		);
+			// function updateData(v)
+			// {
+				// window.parent.updateData(v);
+				// // var form = $(this).parents('form:first');
+				// // alert(v);
+			// }
+		</script>
+	</head>
+	<body style="width:250px;height:160px;margin-left:0;margin-top:0px">
+		<!-- <header>
+			<h1>Add Province</h1>
+		</header> -->
+		<section style="border-bottom: 1px solid grey">
+			<%= form_for(@province,:remote=>true) do |p| %>
+			<%= p.text_field :name, :placeholder=>'Province Name'  %>
+			<br>
+			<br>
+			<%= p.submit :id=>"btnSave", :value=>"Ok"%>
+			<%= p.submit :id=>"btnCancel",:value=>"Cancel", :type=>"reset" %>
+			 <%= hidden_field_tag "mode", @mode %>
+			<% end %>
+			
+			<br>
+			<br>
+		</section>
+	</body>
+</html>
