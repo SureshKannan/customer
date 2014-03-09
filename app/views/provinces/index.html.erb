@@ -44,14 +44,16 @@
 
 	    $("#btnNew").click(function() {
 	        $( "#dialog-form" ).dialog( "open" );
-	        $("#newdialog").attr('src','http://0.0.0.0:3000/provinces/new?mode=new');
+	        //$("#newdialog").attr('src','http://0.0.0.0:3000/provinces/new?mode=new');
+	        $("#newdialog").attr('src','<%=new_province_url%>?mode=new');
 	      });
 	  });
 	  
 	  function openProvince(id)
 	  {
 	  	$( "#dialog-form" ).dialog( "open" );
-	    $("#newdialog").attr('src','http://0.0.0.0:3000/provinces/'+id+'/edit?mode=edit');
+	    //$("#newdialog").attr('src','http://0.0.0.0:3000/provinces/'+id+'/edit?mode=edit');
+	    $("#newdialog").attr('src','<%=provinces_path%>/'+id+'/edit?mode=edit');
 	  }
   
 		</script>
