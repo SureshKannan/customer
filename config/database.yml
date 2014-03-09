@@ -32,8 +32,8 @@ test:
 production:
   adapter: mysql2
   encoding: utf8
-  database: customer_production
+  database: heroku_edfccacbcd5baf7
   pool: 5
-  username: root
-  password: cntndw
+  username: b8d09ad9aba65a
+  password: 78cb61ff
   socket: /tmp/mysql.sock
