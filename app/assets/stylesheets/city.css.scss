@@ -1,3 +1,32 @@
 // Place all the styles related to the City controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+dl, dt, dd { padding:0;
+  margin:0
+  }
+dl {
+ width:220px;
+ overflow:hidden;
+}
+dt {
+ float:left;
+ width:100px; /* adjust the width; make sure the total of both is 100% */
+vertical-align:center;
+// display:-ms-flexbox;
+ // -ms-flex-pack:center;
+// -ms-flex-align:center;
+// display:-moz-box;
+// -moz-box-pack:center;
+// -moz-box-align:center;
+// display:-webkit-box;
+// -webkit-box-pack:center;
+// -webkit-box-align:center;
+// display:box;
+// box-pack:center;
+// box-align:center;
+}
+dd {
+ float:left;
+ width:120px; /* adjust the width; make sure the total of both is 100% */
+}

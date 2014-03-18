@@ -1,0 +1,10 @@
+<% if @mode=="new"%>
+	window.parent.updateData("new","<tr id='r<%=@city.id%>'><td><input type='checkbox' id='row<%=@city.id%>'></td><td><a href='javascript:openCity(<%=@city.id%>)'><%= @city.name %></a></td><td><%=@city.province.name%></td> <td><%= @city.created_at %></td></tr>","0");
+	alert('<%=@city.name%> sucessfully created!');
+	$("#city_name").val("");
+	$("#city_name").focus();
+<% else %>
+	window.parent.updateData("edit","<tr id='r<%=@city.id%>'><td><input type='checkbox' id='row<%=@city.id%>'></td><td><a href='javascript:openCity(<%=@city.id%>)'><%= @city.name %></a></td><td><%=@city.province.name%></td> <td><%= @city.created_at %></td></tr>","r<%=@city.id%>");
+	alert('<%=@city.name%> successfully updated!');
+	window.parent.document.getElementById("btnClose").click();
+<% end %> 

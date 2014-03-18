@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Maintenance City</title>
+		<script>
+		  function openCity(id)
+	  {
+	  	$( "#dialog-form" ).dialog( "open" );
+	    //$("#newdialog").attr('src','http://0.0.0.0:3000/provinces/'+id+'/edit?mode=edit');
+	    $("#newdialog").attr('src','<%=cities_path%>/'+id+'/edit?mode=edit');
+	  }
+	  
+		function updateData(mode,data,rowid)
+			{
+				if (mode=="new")
+				{
+				$("#datalist > tbody:last").append(data);
+				}
+				else
+				{
+				$("#" + rowid).replaceWith(data);
+				}
+				 
+			}
+	    
+	    
+				$(function() {
+				
+				 $("#btnClose").click(function()
+	    {
+	    	alert("close");
+	    	$("#dialog-form").dialog("close");
+	    });
+	    
+	    
+	    
+			$( "#dialog-form" ).dialog({
+	      autoOpen: false,
+	      height: 160,
+	      width: 250,
+	      modal: true,
+	      // buttons: {
+	        // "OK": function() {
+	        	// alert("ok");
+	            // $( this ).dialog( "close" );
+	        	// },
+	        // Cancel: function() {
+	          // $( this ).dialog( "close" );
+	        	// }
+	      	// }
+	    	});
+	    	
+	    	 $("#btnNew").click(function() 
+	    	 {
+	        	$( "#dialog-form" ).dialog( "open" );
+	        //$("#newdialog").attr('src','http://0.0.0.0:3000/provinces/new?mode=new');
+	        $("#newdialog").attr('src','<%=new_city_url%>?mode=new');
+	      });
+	  });
+	  
+		</script>
+	</head>
+	<body>
+		<!-- new dialog start -->
+		<div id="dialog-form" title="Create new city" style="background-color:grey">
+			<iframe id="newdialog" name="newdialog" seamless="seamless" frameborder="0" scrolling="no"> 
+		    </iframe>
+		</div>
+		<!-- new dialog end -->
+		<header>
+			Maintenance - City
+		</header>
+		<section>
+			<input type="button" id="btnNew" value="New">
+			<input type="button" id="bntDelete" value="Delete">
+			<input type="button" id="btnClose" value="Close">
+		</section>
+		<section>
+			<table id="datalist" border="1">
+				<thead>
+					<tr>
+						<th></th>
+						<th>City</th>
+						<th>Province</th>
+						<th>Date Created</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @cities.each do |c| %>
+					<tr id="r<%=c.id%>">
+						<td> <input type="checkbox" id="row<%=c.id%>">
+						<td> <a href="javascript:openCity(<%=c.id%>)"> <%=c.name%></a></td>
+						<td> <%=c.province.name%></td>
+						<td> <%=c.created_at%></td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+			
+		</section>
+		<footer></footer>
+	</body>
+</html>

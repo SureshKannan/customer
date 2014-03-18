@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>New City</title>
+		<script>
+			$(document).ready(function()
+			{
+				$("#btnCancel").click(
+					function() 
+					{
+						window.parent.document.getElementById("btnClose").click();
+				    }
+				  );
+			 }
+		);
+			// function updateData(v)
+			// {
+				// window.parent.updateData(v);
+				// // var form = $(this).parents('form:first');
+				// // alert(v);
+			// }
+		</script>
+	</head>
+	<body style="width:250px;height:160px;margin-left:0;margin-top:0px">
+		<!-- <header>
+			<h1>Add Province</h1>
+		</header> -->
+		<section style="border-bottom: 1px solid grey">
+			<%= form_for(@city,:remote=>true) do |c| %>
+			<dl>
+				<dt>Name:</dt>					
+				<dd><%= c.text_field :name, :placeholder=>'City Name'  %></dd>
+				<dt>Province:</dt>
+				<dd>
+					<% if @mode == "new"%>
+					<%= c.select :province_id,options_from_collection_for_select(Province.all, 'id', 'name')  %></dd>
+					<% else %>
+					<%= c.select :province_id,options_from_collection_for_select(Province.all, 'id', 'name', @city.province_id)  %></dd>
+					<% end %>
+			</dl>
+			<br>
+			<br>
+			<%= c.submit :id=>"btnSave", :value=>"Ok"%>
+			<%= c.submit :id=>"btnCancel",:value=>"Cancel", :type=>"reset" %>
+			 <%= hidden_field_tag "mode", @mode %>
+			<% end %>
+			
+			<br>
+			<br>
+		</section>
+	</body>
+</html>
