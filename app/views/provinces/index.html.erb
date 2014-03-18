@@ -3,6 +3,49 @@
 	<head>
 		<title>Province</title>
 		<script>
+		function checkAll()
+	{
+		var selected = $("#selectAll").prop("checked");
+		if (selected)
+			$("input:checkbox").prop("checked",true);
+		else
+			$("input:checkbox").prop("checked",false);
+		
+		return true;
+	}
+	function deleteRows()
+	{
+		var n = $("input:checkbox:checked" ).not("#selectAll").length;
+		if (n<=0)
+		{
+			alert('Please select the province[s] to delete!');
+			return false;
+		}
+		else
+		{
+			data = $("input:checkbox:checked" );
+			var ids="";
+			$.each(data,function(key,value)
+			{
+				//alert(this.value);
+				if (this.value !=-1)
+				ids = ids + this.value + ",";
+				
+			});
+			ids = ids.substring(0,ids.lastIndexOf(","));
+			$("#idstodelete").prop("value",ids);
+			//alert(ids);
+			if (confirm('Are you sure?')==true)
+			{
+				return true;
+			}		
+			else
+			{
+				return false;
+			}
+		}
+	}
+			
 			function updateData(mode,data,rowid)
 			{
 				if (mode=="new")
@@ -59,6 +102,7 @@
 		</script>
 	</head>
 	<body>
+		
 		<!-- new dialog start -->
 		<div id="dialog-form" title="Create new province" style="background-color:grey">
 			<iframe id="newdialog" name="newdialog" seamless="seamless" frameborder="0" scrolling="no"> 
@@ -68,16 +112,17 @@
 		<header>
 			<h1>List of Provinces</h1>
 		</header>
+		<%= form_tag(remote: true) do %>
 		<section>
 			<input type="button" id="btnNew" value="New">
-			<input type="button" id="bntDelete" value="Delete">
+			<input type="submit" id="bntDelete" name="btnDelete" value="Delete" onclick="return deleteRows();">
 			<input type="button" id="btnClose" value="Close">
 		</section>
 		<section>
 			<table id="datalist" border="1">
 				<thead>
 					<tr>
-						<th></th>
+						<th><input type="checkbox" id="selectAll" onclick="checkAll();" /></th>
 						<th>Name</th>
 						<th>Date Created</th>
 					</tr>
@@ -85,15 +130,15 @@
 				<tbody>
 					<% @provinces.each do |p| %>
 					<tr id="r<%=p.id%>">
-						<td> <input type="checkbox" id="row<%=p.id%>">
+						<td> <input type="checkbox" id="row<%=p.id%>" name="province[]" value="<%=p.id%>">
 						<td> <a href="javascript:openProvince(<%=p.id%>)"> <%=p.name%></a></td>
 						<td> <%=p.created_at%></td>
 					</tr>
 					<% end %>
 				</tbody>
 			</table>
-			
 		</section>
+		<% end %>
 		<div id="dl">
 		</div>	
 	</body>
