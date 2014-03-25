@@ -10,12 +10,25 @@ class ProvincesController < ApplicationController
   def show
     
   end
-  def create
+  def searchOrdelete
     if params[:btnDelete]
-      respond_to do |format|
-        format.js { render :action => "delete" }
+          @ids = ""
+        @provinceselection= params[:ps] 
+        @provinceselection.each { |f| 
+          # @ids += f.to_s() + ","
+          @province = Province.find(f)
+          if (@province)
+          @province.destroy
+          end
+          }
+#    
+          respond_to do |f|
+            f.js { render "delete", :formats=>[:js]}
+          end
       end
-    else
+  end
+  
+  def create
       @province = Province.new(province_params)
       @mode= params[:mode]
       @province.save
@@ -23,7 +36,6 @@ class ProvincesController < ApplicationController
         #f.html { redirect_to action: 'new' }
         f.js 
       end
-     end
   end
   def edit
     @provinces = Province.all
@@ -41,18 +53,22 @@ class ProvincesController < ApplicationController
   end
   def delete
     @ids = ""
-    @provinceselection= params[:province] 
-    @provinceselection.each { |f| 
-      # @ids += f.to_s() + ","
-      @province = Province.find(f)
-      if (@province)
-      @province.destroy
-      end
-      }
-   
+    # @provinceselection= params[:ps] 
+    # @provinceselection.each { |f| 
+      # # @ids += f.to_s() + ","
+      # @province = Province.find(f)
+      # if (@province)
+      # @province.destroy
+      # end
+      # }
+      # @provinces = Province.all
+      # respond_to do |f|
+        # f.js { render "alert('i am ok);"} 
+      # end
   end
   private
   def province_params
-    params.require(:province).permit(:name,:mode)
+    params.require(:province).permit(:name,:mode,:ps)
+    #params.permit(:name,:mode,:ps)
   end
 end
