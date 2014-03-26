@@ -34,9 +34,6 @@
 			});
 			ids = ids.substring(0,ids.lastIndexOf(","));
 			$("#idstodelete").prop("value",ids);
-			alert("yes");
-			this.id = ids;
-			alert("yes");
 			//alert(ids);
 			if (confirm('Are you sure?')==true)
 			{
@@ -115,13 +112,10 @@
 		<header>
 			<h1>List of Provinces</h1>
 		</header>
-		<!-- <%= form_tag(:remote=>true) do %> -->
+		<%= form_tag({:action => "searchOrdelete"}, remote: true) do %>
 		<section>
-			<%= button_to "Delete", { action: "delete",:id=>"1,2,3,4" },
-                                 :remote=>true, "onclick"=>"deleteRows()"%>
-                 
 			<input type="button" id="btnNew" value="New">
-			<!-- <input type="submit" id="bntDelete" name="btnDelete" value="Delete" onclick="return deleteRows();"> -->
+			<input type="submit" id="bntDelete" name="btnDelete" value="Delete" onclick="return deleteRows();">
 			<input type="button" id="btnClose" value="Close">
 		</section>
 		<section>
@@ -144,7 +138,7 @@
 				</tbody>
 			</table>
 		</section>
-		<!-- <% end %> -->
+		<% end %>
 		<div id="dl">
 		</div>	
 	</body>

@@ -1,6 +1,5 @@
 Customer::Application.routes.draw do 
-  post '/provinces/delete', to: 'provinces#delete', as: 'provincesdeletepost'
-  delete '/provinces', to: 'provinces#delete', as: 'provincesdelete'
+  post 'provinces/searchOrdelete'
   resources :cities
   resources :provinces
   
